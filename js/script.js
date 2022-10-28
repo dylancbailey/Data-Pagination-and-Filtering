@@ -4,7 +4,7 @@ const LINK_LIST = document.querySelector(".link-list");
 const HEADER = document.querySelector(".header");
 let CURRENT_LIST = data;
 
-// * Create and appends student elements to page
+// * Creates and appends student elements to page
 function showPage(list, page) {
   const startIndex = page * ITEMS_PER_PAGE - ITEMS_PER_PAGE;
   const endIndex = page * ITEMS_PER_PAGE;
