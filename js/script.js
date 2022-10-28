@@ -57,6 +57,7 @@ function addPagination(list) {
    linkList.innerHTML = "";
 
    for (let i = 1; i < paginationButtons; i++) {
+      let btn;
 
       linkList.insertAdjacentHTML("beforeend", 
       `
@@ -66,7 +67,7 @@ function addPagination(list) {
       `
       );
 
-      const btn = document.querySelector("button");
+      btn = document.querySelector("button");
       btn.classList.add("active");
    }
 
