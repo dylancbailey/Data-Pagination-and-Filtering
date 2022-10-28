@@ -6,7 +6,7 @@ let CURRENT_LIST = data;
 
 // * Creates and appends student elements to page
 function showPage(list, page) {
-  const startIndex = (page * ITEMS_PER_PAGE) - ITEMS_PER_PAGE;
+  const startIndex = page * ITEMS_PER_PAGE - ITEMS_PER_PAGE;
   const endIndex = page * ITEMS_PER_PAGE;
   const studentList = document.querySelector(".student-list");
 
@@ -88,15 +88,12 @@ function searchFilter(list) {
     const value = e.target.value.toLowerCase();
     let studentList = [];
 
-    list.forEach(student => {
-      let firstName = student.name.first.toLowerCase();
-      let lastName = student.name.last.toLowerCase();
-      if (
-         firstName.includes(value) ||
-         lastName.includes(value)
-       ) {
-         studentList.push(student);
-       }
+    list.forEach((student) => {
+      const firstName = student.name.first.toLowerCase();
+      const lastName = student.name.last.toLowerCase();
+      if (firstName.includes(value) || lastName.includes(value)) {
+        studentList.push(student);
+      }
     });
 
     CURRENT_LIST = studentList;
