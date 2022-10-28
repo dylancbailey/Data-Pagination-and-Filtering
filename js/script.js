@@ -1,5 +1,7 @@
-// * Global variable for number of student cards
+// * Global variables
 const ITEMS_PER_PAGE = 9;
+const LINK_LIST = document.querySelector(".link-list");
+const HEADER = document.querySelector(".header");
 let CURRENT_LIST = data;
 
 // * Create and appends student elements to page
@@ -33,12 +35,11 @@ function showPage(list, page) {
 // * Creates and appends elements for pagination buttons
 function addPagination(list) {
    const pageButtons = Math.ceil(list.length / ITEMS_PER_PAGE);
-   const linkList = document.querySelector(".link-list");
 
-   linkList.innerHTML = "";
+   LINK_LIST.innerHTML = "";
 
    for (let btn = 1; btn < pageButtons + 1; btn++) {
-      linkList.insertAdjacentHTML("beforeend",
+      LINK_LIST.insertAdjacentHTML("beforeend",
       `
          <li>
             <button type="button">${btn}</button>
@@ -48,23 +49,22 @@ function addPagination(list) {
       const activeBtn = document.querySelector("button");
       activeBtn.classList.add("active");
    }
-
-   linkList.addEventListener("click", (btn) => {
-      const target = btn.target;
-      if (target.tagName === "BUTTON") {
-         const pageBtn = document.querySelector(".active");
-         pageBtn.classList.remove("active");
-         target.classList.add("active");
-         showPage(list, target.textContent);
-      }
-   });
 }
+
+// * Adds and removes btn styling
+LINK_LIST.addEventListener("click", (btn) => {
+   const target = btn.target;
+   if (target.tagName === "BUTTON") {
+      const pageBtn = document.querySelector(".active");
+      pageBtn.classList.remove("active");
+      target.classList.add("active");
+      showPage(CURRENT_LIST, target.textContent);
+   }
+});
 
 // * Creates and appends search bar
 function searchBar(list) {
-   const header = document.querySelector(".header");
-
-   header.insertAdjacentHTML("beforeend", 
+   HEADER.insertAdjacentHTML("beforeend", 
    `
    <label for="search" class="student-search">
       <span>Search by name</span>
@@ -73,6 +73,11 @@ function searchBar(list) {
    </label>
    `);
 
+   searchFilter(list);
+}
+
+// * Creates a new array and adds logic for searching
+function searchFilter(list) {
    const searchInput = document.querySelector("label[for='search']");
    searchInput.addEventListener("keyup", (e) => {
       const value = e.target.value.toLowerCase();
@@ -90,7 +95,7 @@ function searchBar(list) {
 
       if (CURRENT_LIST.length < 1) {
          if (!document.querySelector(".no-results")) {
-            header.insertAdjacentHTML("afterend", `<h1 class="no-results">No results found.</h1>`);
+            HEADER.insertAdjacentHTML("afterend", `<h1 class="no-results">No results found.</h1>`);
          } 
       } else {
          if (document.querySelector(".no-results")) {
