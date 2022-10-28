@@ -1,5 +1,6 @@
 // * Global variable for number of student cards
 const ITEMS_PER_PAGE = 9;
+let CURRENT_LIST = data;
 
 // * Create and appends student elements to page
 function showPage(list, page) {
@@ -31,7 +32,7 @@ function showPage(list, page) {
 
 // * Creates and appends elements for pagination buttons
 function addPagination(list) {
-   const pageButtons = list.length % ITEMS_PER_PAGE;
+   const pageButtons = Math.ceil(list.length / ITEMS_PER_PAGE);
    const linkList = document.querySelector(".link-list");
 
    linkList.innerHTML = "";
@@ -60,7 +61,7 @@ function addPagination(list) {
 }
 
 // * Creates and appends search bar
-function searchBar() {
+function searchBar(list) {
    const header = document.querySelector(".header");
 
    header.insertAdjacentHTML("beforeend", 
@@ -71,9 +72,29 @@ function searchBar() {
       <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
    </label>
    `);
+
+   const searchInput = document.querySelector("label[for='search']");
+   searchInput.addEventListener("keyup", (e) => {
+      const value = e.target.value.toLowerCase();
+      let studentList = [];
+
+      for (let i = 0; i < list.length; i++) {
+         let student = list[i];
+
+         if (student.name.first.toLowerCase().includes(value) || student.name.last.toLowerCase().includes(value)) {
+            studentList.push(student);
+         }
+      }
+
+      CURRENT_LIST = studentList;
+
+      showPage(CURRENT_LIST, 1);
+      addPagination(CURRENT_LIST);
+
+   });
 }
 
-// Call functions
-showPage(data, 1);
-addPagination(data);
-searchBar();
+// * Call functions
+showPage(CURRENT_LIST, 1);
+addPagination(CURRENT_LIST);
+searchBar(CURRENT_LIST);
