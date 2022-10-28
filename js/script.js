@@ -86,8 +86,17 @@ function searchBar(list) {
          }
       }
 
-      console.log(studentList)
       CURRENT_LIST = studentList;
+
+      if (CURRENT_LIST.length < 1) {
+         if (!document.querySelector(".no-results")) {
+            header.insertAdjacentHTML("afterend", `<h1 class="no-results">No results found.</h1>`);
+         } 
+      } else {
+         if (document.querySelector(".no-results")) {
+            document.querySelector(".no-results").remove();
+         }
+      }
 
       showPage(CURRENT_LIST, 1);
       addPagination(CURRENT_LIST);
