@@ -37,7 +37,7 @@ function addPagination(list) {
 
    linkList.innerHTML = "";
 
-   for (let btn = 1; btn < pageButtons; btn++) {
+   for (let btn = 1; btn < pageButtons + 1; btn++) {
       linkList.insertAdjacentHTML("beforeend",
       `
          <li>
@@ -86,6 +86,7 @@ function searchBar(list) {
          }
       }
 
+      console.log(studentList)
       CURRENT_LIST = studentList;
 
       showPage(CURRENT_LIST, 1);
