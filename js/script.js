@@ -48,9 +48,7 @@ function addPageButtons(list) {
          </li>
       `
     );
-
-    const activeBtn = document.querySelector("button");
-    activeBtn.classList.add("active");
+    document.querySelector("button").classList.add("active");
   }
 }
 
