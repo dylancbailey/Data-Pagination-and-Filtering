@@ -88,16 +88,16 @@ function searchFilter(list) {
     const value = e.target.value.toLowerCase();
     let studentList = [];
 
-    for (let i = 0; i < list.length; i++) {
-      let student = list[i];
-
+    list.forEach(student => {
+      let firstName = student.name.first.toLowerCase();
+      let lastName = student.name.last.toLowerCase();
       if (
-        student.name.first.toLowerCase().includes(value) ||
-        student.name.last.toLowerCase().includes(value)
-      ) {
-        studentList.push(student);
-      }
-    }
+         firstName.includes(value) ||
+         lastName.includes(value)
+       ) {
+         studentList.push(student);
+       }
+    });
 
     CURRENT_LIST = studentList;
 
