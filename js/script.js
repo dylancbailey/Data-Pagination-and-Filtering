@@ -34,7 +34,7 @@ function showPage(list, page) {
 }
 
 // * Creates and appends elements for pagination buttons
-function addPagination(list) {
+function addPageButtons(list) {
   const pageButtons = Math.ceil(list.length / ITEMS_PER_PAGE);
 
   LINK_LIST.innerHTML = "";
@@ -112,11 +112,11 @@ function searchFilter(list) {
     }
 
     showPage(CURRENT_LIST, 1);
-    addPagination(CURRENT_LIST);
+    addPageButtons(CURRENT_LIST);
   });
 }
 
 // * Call functions
 showPage(CURRENT_LIST, 1);
-addPagination(CURRENT_LIST);
+addPageButtons(CURRENT_LIST);
 searchBar(CURRENT_LIST);
