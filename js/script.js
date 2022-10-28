@@ -11,77 +11,71 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
-const itemsPerPage = 9;
+const ITEMS_PER_PAGE = 9;
 
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 function showPage(list, page) {
-   const startIndex = (page * itemsPerPage) - itemsPerPage;
-   const endIndex = page * itemsPerPage;
+   const startIndex = (page * ITEMS_PER_PAGE) - ITEMS_PER_PAGE;
+   const endIndex = page * ITEMS_PER_PAGE;
    const studentList = document.querySelector(".student-list");
 
    studentList.innerHTML = "";
 
    for (let [index, student] of list.entries()) {
-
       if (index >= startIndex && index < endIndex) {
          studentList.insertAdjacentHTML("beforeend", 
          `
-         <li class="student-item cf">
-            <div class="student-details">
-            <img class="avatar" src="${student.picture.large}" alt="Profile Picture">
-            <h3>${student.name.first} ${student.name.last}</h3>
-            <span class="email">${student.email}</span>
-            </div>
-            <div class="joined-details">
-            <span class="date">Joined ${student.registered.date}</span>
-            </div>
-         </li>
+            <li class="student-item cf">
+               <div class="student-details">
+               <img class="avatar" src="${student.picture.large}" alt="Profile Picture">
+               <h3>${student.name.first} ${student.name.last}</h3>
+               <span class="email">${student.email}</span>
+               </div>
+               <div class="joined-details">
+               <span class="date">Joined ${student.registered.date}</span>
+               </div>
+            </li>
          `
          );
       }
    }
 }
 
-
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list) {
-   const paginationButtons = list.length % itemsPerPage; 
+   const pageButtons = list.length % ITEMS_PER_PAGE;
    const linkList = document.querySelector(".link-list");
 
    linkList.innerHTML = "";
 
-   for (let i = 1; i < paginationButtons; i++) {
-      let btn;
-
-      linkList.insertAdjacentHTML("beforeend", 
+   for (let btn = 1; btn < pageButtons; btn++) {
+      linkList.insertAdjacentHTML("beforeend",
       `
          <li>
-            <button type="button">${i}</button>
+            <button type="button">${btn}</button>
          </li>
-      `
-      );
+      `);
 
-      btn = document.querySelector("button");
-      btn.classList.add("active");
+      const activeBtn = document.querySelector("button");
+      activeBtn.classList.add("active");
    }
 
-   linkList.addEventListener("click", (e) => {
-      const target = e.target;
+   linkList.addEventListener("click", (btn) => {
+      const target = btn.target;
       if (target.tagName === "BUTTON") {
-         const btn = document.querySelector(".active");
-         btn.className = "";
-         target.className = "active";
+         const pageBtn = document.querySelector(".active");
+         pageBtn.classList.remove("active");
+         target.classList.add("active");
          showPage(list, target.textContent);
       }
    });
 }
-
 
 // Call functions
 showPage(data, 1);
